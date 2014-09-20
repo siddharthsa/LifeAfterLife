@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LifeAfterLife</string>
+    <string name="age">Age :</string>
+    <string name="enter_age">Enter age in years</string>
+    <string name="gender">Gender</string>
+    <string name="contact">Contact number:</string>
+    <string name="enter_contact">Please enter your contact number</string>
+    <string name="emergency_name">Emergency contact name</string>
+    <string name="enter_emergency_name">Enter name of emergency contact</string>
+    <string name="emergency_contact">Emergency contact number</string>
+    <string name="enter_emergency_contact">Enter emergency contact number</string>
+</resources>
