@@ -18,7 +18,7 @@
   <string name="demo_title">Google Maps API Demos</string>
   <string name="down_arrow">\u2193</string>
   <string name="drag_melbourne">Drag Melbourne</string>
-  <string name="user_info">Location timeline for user :</string>
+  <string name="user_info">Tracking user : b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12</string>
   <string name="duration">Custom Duration</string>
   <string name="hue">Hue</string>
   <string name="events_demo_label">Events</string>

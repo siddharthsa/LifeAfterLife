@@ -2,6 +2,8 @@ package com.hack.LifeAfterLife;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,12 +45,8 @@ public class UserTimelineActivity extends FragmentActivity
         SeekBar.OnSeekBarChangeListener {
     private static final String IOS_GUID =
             "b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12";
-    private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
 
     private GoogleMap mMap;
-
-    private Marker mBrisbane;
-
 
     private TextView mTopText;
     private SeekBar mRotationBar;
@@ -124,6 +122,7 @@ public class UserTimelineActivity extends FragmentActivity
     private void setUpMap() {
         // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
+        mMap.setMyLocationEnabled(true);
 
         // Add lots of markers to the map.
 
@@ -138,12 +137,19 @@ public class UserTimelineActivity extends FragmentActivity
             e.printStackTrace();
         }
 
+        boolean isLocationSet = false;
+
         List<LatLng> latlng = new ArrayList<LatLng>();
         for (Location location:locations){
             addMarkersToMap(location.getLatitude(), location.getLongitude(),
                     new Timestamp(location.getTimestamp()));
             latlng.add(new LatLng(location.getLatitude(), location.getLongitude()));
+            if(!isLocationSet){
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 1));
+                isLocationSet = true;
+            }
         }
+
 
         LatLng[] latLng = new LatLng[latlng.size()];
         PolylineOptions line =
@@ -167,8 +173,37 @@ public class UserTimelineActivity extends FragmentActivity
                 @SuppressLint("NewApi") // We check which build version we are using.
                 @Override
                 public void onGlobalLayout() {
+                    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+                    // Creating a criteria object to retrieve provider
+                    Criteria criteria = new Criteria();
+
+                    // Getting the name of the best provider
+                    String provider = locationManager.getBestProvider(criteria, true);
+
+                    // Getting Current Location
+                    android.location.Location location = locationManager.getLastKnownLocation(provider);
+
+
+                    // Getting latitude of the current location
+                    double latitude = location.getLatitude();
+
+                    // Getting longitude of the current location
+                    double longitude = location.getLongitude();
+
+                    // Creating a LatLng object for the current location
+                    LatLng latLng = new LatLng(latitude, longitude);
+
+                    // Showing the current location in Google Map
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                    // Zoom in the Google Map
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+
                     LatLngBounds bounds = new LatLngBounds.Builder()
-                            .include(BRISBANE)
+                            .include(latLng)
                             .build();
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                         mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);

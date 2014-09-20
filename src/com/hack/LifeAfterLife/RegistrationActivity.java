@@ -29,11 +29,16 @@ import sos.User;
 import sos.emergency_helper;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationActivity extends Activity {
     private static final String IOS_GUID =
             "b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12";
+
+    private static final String GUID =
+            "GUID";
+
     EditText name, age, contact, emergency_name, emergency_contact;
     Spinner gender;
     Button btnSubmit;
@@ -167,18 +172,27 @@ public class RegistrationActivity extends Activity {
 
                 Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
 
-                new UserRegisterTask().execute(user);
+                Long returnVal = null;
+                try {
+                    returnVal = new UserRegisterTask().execute(user).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-
+                if(returnVal == Long.valueOf(1l)){
+                    Intent intent = new Intent(RegistrationActivity.this, SearchLocationsActivity.class);
+                    intent.putExtra(GUID, IOS_GUID);
+                    startActivity(intent);
+                }
             }
         }
-
         );
     }
 
     private class UserRegisterTask extends AsyncTask<User, Integer, Long> {
         protected Long doInBackground(User... user) {
-
 
             try {
                 Log.i("register_log", "trying registration");
