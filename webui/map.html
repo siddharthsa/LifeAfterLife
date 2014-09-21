@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map_canvas {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+function initialize() {
+        var obj;
+	var myLatlng = new google.maps.LatLng(12.9258605,77.6673204);
+        var mapCanvas = document.getElementById('map_canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(12.9258605, 77.6673204),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+//	 var marker = new google.maps.Marker({
+//	      position: myLatlng,
+ //     	      map: map,
+ //     		title: 'Hello World!'
+ // 	});
+
+                $.ajax({
+                    type: "GET",
+                    url: "response.html",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {                            
+                        obj = JSON.parse(data);
+                    } //success
+                });
+                return obj;
+        };
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map_canvas"></div>
+  </body>
+</html>
+
