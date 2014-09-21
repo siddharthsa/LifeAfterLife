@@ -43,6 +43,7 @@
         <EditText android:id="@+id/age"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:inputType="phone"
                   android:hint="@string/enter_age"/>
 
     <!--</LinearLayout>-->
@@ -84,6 +85,7 @@
         <EditText android:id="@+id/contact"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:inputType="phone"
                   android:hint="@string/enter_contact"/>
 
     <!--</LinearLayout>-->
@@ -124,12 +126,14 @@
         <EditText android:id="@+id/emergency_contact"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:inputType="phone"
                   android:hint="@string/enter_emergency_contact"/>
 
     <Button
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:text="Register"/>
 
     <!--</LinearLayout>-->

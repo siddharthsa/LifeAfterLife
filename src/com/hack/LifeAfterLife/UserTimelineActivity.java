@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -47,6 +48,7 @@ public class UserTimelineActivity extends FragmentActivity
             "b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12";
 
     private GoogleMap mMap;
+
 
     private TextView mTopText;
     private SeekBar mRotationBar;
@@ -132,14 +134,16 @@ public class UserTimelineActivity extends FragmentActivity
         try {
             locations = new GetUserLocationTask().execute(IOS_GUID).get();
         } catch (InterruptedException e) {
+            Log.i("Estimote","ERROR IN USER"+e.getCause());
             e.printStackTrace();
         } catch (ExecutionException e) {
+            Log.i("Estimote","ERROR IN USER"+e.getCause());
             e.printStackTrace();
         }
 
         boolean isLocationSet = false;
 
-        List<LatLng> latlng = new ArrayList<LatLng>();
+       final  List<LatLng> latlng = new ArrayList<LatLng>();
         for (Location location:locations){
             addMarkersToMap(location.getLatitude(), location.getLongitude(),
                     new Timestamp(location.getTimestamp()));
@@ -188,20 +192,12 @@ public class UserTimelineActivity extends FragmentActivity
 
                     // Getting latitude of the current location
                     double latitude = location.getLatitude();
-
+                    Log.i("Estimote","Lat is"+latitude);
                     // Getting longitude of the current location
                     double longitude = location.getLongitude();
-
+                    Log.i("Estimote","long is"+longitude);
                     // Creating a LatLng object for the current location
-                    LatLng latLng = new LatLng(latitude, longitude);
-
-                    // Showing the current location in Google Map
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                    // Zoom in the Google Map
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-
+                    LatLng latLng = latlng.get(0);//new LatLng(latitude, longitude);
                     LatLngBounds bounds = new LatLngBounds.Builder()
                             .include(latLng)
                             .build();
@@ -211,6 +207,13 @@ public class UserTimelineActivity extends FragmentActivity
                         mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                     mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                    // Showing the current location in Google Map
+                    CameraUpdate mylocation=CameraUpdateFactory.newLatLngZoom(latLng, 19);
+                    //  mMap.moveCamera();
+
+                    // Zoom in the Google Map
+                   //mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+                    mMap.moveCamera(mylocation);
                 }
             });
         }

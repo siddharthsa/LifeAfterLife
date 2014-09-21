@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
                android:orientation="vertical"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
+               android:background="@drawable/bg2"
                android:layout_centerInParent="true">
                <!--android:background="@drawable/bg"-->
                <!--android:padding="10dp">-->
@@ -11,25 +12,27 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--android:orientation="horizontal">-->
-
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerInParent="true" >
     <TextView
             android:id="@+id/top_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
-            android:text="Enter guid to be tracked"/>
+            android:text="ID of Your Friend to be tracked"/>
 
 
     <EditText android:id="@+id/name"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:hint="Guid"/>
+              android:textColorHint="@android:color/black"
+              android:hint="b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12"/>
     <Button
             android:id="@+id/btnSubmitUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register"/>
+            android:text="Track"/>
 
     <!--</LinearLayout>-->
-
 </LinearLayout>
+
+</RelativeLayout>

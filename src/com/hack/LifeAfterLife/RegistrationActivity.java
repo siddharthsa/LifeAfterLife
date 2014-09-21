@@ -2,7 +2,6 @@ package com.hack.LifeAfterLife;
 
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,7 +27,6 @@ import org.apache.thrift.transport.TTransportException;
 import sos.User;
 import sos.emergency_helper;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +52,7 @@ public class RegistrationActivity extends Activity {
             "EstimoteiBeacon";
     private Context context;
     BeaconManager beaconManager;
+    private static boolean isRegistered=false;
 
     private void startMonitoringBeacon() {
         //---called when beacons are found---
@@ -71,22 +70,7 @@ public class RegistrationActivity extends Activity {
         }
     }
 
-    public static boolean isAppInForeground(
-            Context context) {
-        List<ActivityManager.RunningTaskInfo> task = ((ActivityManager)
-                context.getSystemService(
-                        Context.ACTIVITY_SERVICE))
-                .getRunningTasks(1);
-        if (task.isEmpty()) {
-            return false;
-        }
-        return task
-                .get(0)
-                .topActivity
-                .getPackageName()
-                .equalsIgnoreCase(
-                        context.getPackageName());
-    }
+
 
     @Override
     protected void onStart() {
@@ -127,7 +111,11 @@ public class RegistrationActivity extends Activity {
         // use this to start and trigger a service
         Intent i= new Intent(context, NetworkService.class);
         context.startService(i);
-
+        if(isRegistered){
+            Intent intent = new Intent(RegistrationActivity.this, SearchLocationsActivity.class);
+            intent.putExtra(GUID, IOS_GUID);
+            startActivity(intent);
+        }
         setContentView(R.layout.registration);
 
         name = (EditText) findViewById(R.id.name);
@@ -182,6 +170,7 @@ public class RegistrationActivity extends Activity {
                 }
 
                 if(returnVal == Long.valueOf(1l)){
+                    isRegistered=true;
                     Intent intent = new Intent(RegistrationActivity.this, SearchLocationsActivity.class);
                     intent.putExtra(GUID, IOS_GUID);
                     startActivity(intent);
