@@ -12,27 +12,37 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--android:orientation="horizontal">-->
-<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerInParent="true" >
-    <TextView
-            android:id="@+id/top_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lines="2"
-            android:text="ID of Your Friend to be tracked"/>
-
-
-    <EditText android:id="@+id/name"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColorHint="@android:color/black"
-              android:hint="b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12"/>
-    <Button
-            android:id="@+id/btnSubmitUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Track"/>
 
     <!--</LinearLayout>-->
-</LinearLayout>
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSubmitUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="51dp"
+        android:ems="10"
+        android:hint="b9407f30-f5f8-466e-aff9-25556b57fe6d-100-12"
+        android:textColorHint="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnSubmitUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Track" />
+
+    <TextView
+        android:id="@+id/top_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:lines="2"
+        android:text="ID of Your Friend to be tracked" />
 
 </RelativeLayout>
