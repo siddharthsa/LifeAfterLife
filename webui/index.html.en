@@ -293,7 +293,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="nameSearch.html">Search by name</a></li>
-                    <li><a href="areaSearh.html">Search by area</a></li>
+                    <li><a href="areaSearch.html">Search by area</a></li>
                     <li><a href="#">Custom Search</a></li>
 
                   </ul>
